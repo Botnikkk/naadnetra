@@ -1,16 +1,18 @@
-# VoiceGuard
+# Naadnetra
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)](https://flutter.dev/) [![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/) [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/) [![Status](https://img.shields.io/badge/Status-Prototype-orange?style=flat)](https://github.com/Botnikkk/voiceguard)
 
 **AI-powered real-time detection and prevention of voice cloning impersonation attacks.**
 
-VoiceGuard is a cross-platform Flutter app paired with a Python detection backend that judges whether a voice is human or AI-synthesized, live, and surfaces a risk score, a stability-checked verdict, and a one-tap escalation path — instead of leaving the user to figure out a deepfake call after the damage is done.
+🌐 **Live web app:** [https://botnikkk.github.io/naadnetra](https://botnikkk.github.io/naadnetra)
+
+Naadnetra is a cross-platform Flutter app paired with a Python detection backend that judges whether a voice is human or AI-synthesized, live, and surfaces a risk score, a stability-checked verdict, and a one-tap escalation path — instead of leaving the user to figure out a deepfake call after the damage is done.
 
 ---
 
 ## 🌟 Overview
 
-Voice cloning has gone from research curiosity to an active phishing vector — a cloned voice of a relative, a colleague, or a bank official is now cheap to generate and hard to distinguish by ear. Most existing deepfake-audio detectors are built for *offline* analysis of a pre-recorded clip. VoiceGuard targets the moment that actually matters: **while the call is happening, or on the recording right after.**
+Voice cloning has gone from research curiosity to an active phishing vector — a cloned voice of a relative, a colleague, or a bank official is now cheap to generate and hard to distinguish by ear. Most existing deepfake-audio detectors are built for *offline* analysis of a pre-recorded clip. Naadnetra targets the moment that actually matters: **while the call is happening, or on the recording right after.**
 
 The app offers three ways to get audio into the detection pipeline, each with a different accuracy/practicality trade-off, and streams it to a FastAPI backend that runs a pretrained antispoofing model on a rolling window, returning an updated risk score roughly every 1.5 seconds — smoothed over time so the verdict doesn't flicker on a single noisy frame.
 
@@ -20,7 +22,7 @@ The app offers three ways to get audio into the detection pipeline, each with a 
 
 ### 🎙️ Three Detection Modes
 
-VoiceGuard doesn't assume one way of getting at call audio works everywhere, so it offers three, picked from a bottom-sheet action drawer on the dashboard:
+Naadnetra doesn't assume one way of getting at call audio works everywhere, so it offers three, picked from a bottom-sheet action drawer on the dashboard:
 
 | Mode | How it works | Accuracy |
 |---|---|---|
@@ -49,7 +51,7 @@ VoiceGuard doesn't assume one way of getting at call audio works everywhere, so 
 - **One-tap escalation** to a fraud team, with a confirmation sheet before anything is forwarded.
 - **Offline-first call history:** every session is logged locally via Hive (risk score, verdict, duration) with a dashboard summarizing safe vs. flagged/escalated calls.
 - **Biometric app lock** for the app itself, toggleable in Settings.
-- **Web build:** ships as a Flutter web app too, auto-deployed to GitHub Pages on every push to `main`.
+- **Web build:** ships as a Flutter web app too, auto-deployed to GitHub Pages on every push to `main`, live at [botnikkk.github.io/naadnetra](https://botnikkk.github.io/naadnetra).
 
 ---
 
@@ -126,6 +128,6 @@ Being upfront about what's real today vs. what's planned:
 
 ---
 
-## 🤔 Why VoiceGuard?
+## 🤔 Why Naadnetra?
 
-Voice-cloning scams work because the deception happens *in the moment* — by the time a recording can be analyzed after the fact, the money's already moved or the information's already been shared. VoiceGuard's whole design is built around that constraint: analyze while the call is live (or right after), keep the verdict stable enough to trust, and put the decision — stop, escalate, continue — in the user's hands in real time.
+Voice-cloning scams work because the deception happens *in the moment* — by the time a recording can be analyzed after the fact, the money's already moved or the information's already been shared. Naadnetra's whole design is built around that constraint: analyze while the call is live (or right after), keep the verdict stable enough to trust, and put the decision — stop, escalate, continue — in the user's hands in real time.
