@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/constants/app_constants.dart';
 import 'core/services/settings_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/screens/login_screen.dart';
-import 'package:voiceguard/models/recording_log.dart';
+import 'models/recording_log.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +44,7 @@ class _VoiceGuardAppState extends State<VoiceGuardApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: globalNavigatorKey,
-      title: 'VoiceGuard AI',
+      title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       darkTheme: AppTheme.darkTheme,

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:voiceguard/core/widgets/web_constraint.dart';
 
+import '../../../core/widgets/web_constraint.dart';
 import '../../../core/widgets/server_down_dialog.dart';
 import '../../../models/recording_log.dart';
 import '../../../../core/theme/app_colors.dart';

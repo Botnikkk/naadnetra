@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:voiceguard/models/recording_log.dart';
+import '../../models/recording_log.dart';
 
 class RecordingLogDatabase {
   final Box<RecordingLog> box = Hive.box<RecordingLog>("RecordingBox");

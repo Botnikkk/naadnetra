@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:voiceguard/core/widgets/web_constraint.dart';
 
+import '../../../core/widgets/web_constraint.dart';
 import './../../../core/data/database.dart';
 import './../../../core/theme/app_colors.dart';
 import './../../../models/recording_log.dart';

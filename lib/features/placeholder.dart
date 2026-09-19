@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voiceguard/core/widgets/web_constraint.dart';
+import '../core/widgets/web_constraint.dart';
 
 class Placeholder extends StatelessWidget {
   const Placeholder({super.key, required this.title});

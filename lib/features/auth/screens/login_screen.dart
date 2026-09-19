@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/settings_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -87,8 +88,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.bgSurface,
-            border:
-                Border.all(color: AppColors.accentCyan.withValues(alpha: 0.5)),
+            border: Border.all(
+              color: AppColors.accentCyan.withValues(alpha: 0.5),
+            ),
             boxShadow: [
               BoxShadow(
                 color: AppColors.accentCyan.withValues(alpha: 0.25),
@@ -97,11 +99,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
             ],
           ),
-          child: const Icon(Icons.shield_moon_rounded,
-              color: AppColors.accentCyan, size: 40),
+          child: ClipOval(
+            child: Container(
+              color: const Color(0xFF00025C),
+              padding: const EdgeInsets.all(10),
+              child: Image.asset(
+                'assets/appIcon.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ),
         const SizedBox(height: 20),
-        Text('VOICEGUARD AI',
+        Text(AppConstants.appNameUpper,
             style: Theme.of(context)
                 .textTheme
                 .displayLarge

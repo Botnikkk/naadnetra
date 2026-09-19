@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide Placeholder;
-import 'package:voiceguard/core/widgets/web_constraint.dart';
-import 'package:voiceguard/features/auth/screens/login_screen.dart';
+
+import '../../../core/widgets/web_constraint.dart';
+import '../../auth/screens/login_screen.dart';
+import '../../../core/constants/app_constants.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../core/services/settings_service.dart';
@@ -101,9 +103,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }),
             _navTile(
                 icon: Icons.info_outline,
-                label: 'About VoiceGuard AI',
+                label: 'About ${AppConstants.appName}',
                 redirect: (BuildContext p1) {
-                  return const Placeholder(title: 'About VoiceGuard AI');
+                  return const Placeholder(
+                      title: 'About ${AppConstants.appName}');
                 }),
             CustomButton(
               label: 'LOG OUT',

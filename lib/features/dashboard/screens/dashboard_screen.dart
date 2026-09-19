@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../../../core/constants/app_constants.dart';
 import '../../../../core/network/api_config.dart';
 import '../../../core/data/database.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -78,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('VOICEGUARD'),
+            title: Text(AppConstants.appNameShortUpper),
             actions: [
               IconButton(
                 icon: const Icon(Icons.settings_outlined),

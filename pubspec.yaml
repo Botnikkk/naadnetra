@@ -1,4 +1,4 @@
-name: voiceguard
+name: naadnetra
 description: "AI-Powered Real-Time Detection and Prevention of Voice Cloning Impersonation Attacks"
 publish_to: 'none'
 version: 1.0.0+1
@@ -54,9 +54,12 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   hive_generator: ^2.0.1
   build_runner: ^2.4.13
+  rename_app: ^1.6.6
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/appIcon.png
 
 flutter_launcher_icons:
   android: "launcher_icon"

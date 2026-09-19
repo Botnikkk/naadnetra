@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
+import '../../../core/constants/app_constants.dart';
+
 enum AuthStatus { idle, loading, authenticated, error }
 
 class AuthState {
@@ -64,7 +66,7 @@ class AuthController extends StateNotifier<AuthState> {
       }
 
       final bool didAuthenticate = await _localAuth.authenticate(
-        localizedReason: 'Authenticate to access VoiceGuard AI',
+        localizedReason: 'Authenticate to access ${AppConstants.appName}',
         options: const AuthenticationOptions(
           biometricOnly: false, // allow PIN/pattern fallback too
           stickyAuth: true, // survives brief app backgrounding mid-prompt
