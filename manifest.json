@@ -1,18 +1,18 @@
 {
-    "name": "voicegaurd",
-    "short_name": "voicegaurd",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
-    "prefer_related_applications": false,
-    "icons": [
-        {
-            "src": "appIcon.png",
-            "sizes": "4096x4096",
-            "type": "image/png"
-        }
-    ]
+     "name": "NaadNetra",
+     "short_name": "NaadNetra",
+     "start_url": ".",
+     "display": "standalone",
+     "background_color": "#0175C2",
+     "theme_color": "#0175C2",
+     "description": "A new Flutter project.",
+     "orientation": "portrait-primary",
+     "prefer_related_applications": false,
+     "icons": [
+          {
+               "src": "appIcon.png",
+               "sizes": "4096x4096",
+               "type": "image/png"
+          }
+     ]
 }
