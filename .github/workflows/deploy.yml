@@ -21,7 +21,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Web App
-        run: flutter build web --base-href "/voiceguard/"
+        run: flutter build web --base-href "/naadnetra/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
