@@ -7,6 +7,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../../core/network/api_config.dart';
 import '../../../core/data/database.dart';
+import '../../../core/services/update_service.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/web_constraint.dart';
 import '../../../models/recording_log.dart';
@@ -34,6 +35,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     db.createInitialData();
     _checkBackendStatus(); // Ping backend when dashboard opens
+
+    // Android only: look for a newer APK on GitHub Releases (once per launch).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) UpdateService.checkForUpdate(context);
+    });
   }
 
   /// Creates a temporary connection to check if the backend is alive,

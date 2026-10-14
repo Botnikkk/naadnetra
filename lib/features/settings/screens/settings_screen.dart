@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart'
+    show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/material.dart' hide Placeholder;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/widgets/web_constraint.dart';
 import '../../auth/screens/login_screen.dart';
@@ -21,6 +24,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
       MaterialPageRoute(builder: (_) => const LoginScreen()),
       (route) => false,
     );
+  }
+
+  /// Download button is for the website only (not the Android build), and is
+  /// hidden on iPhone/iPad browsers where an APK is useless.
+  bool get _showApkDownload =>
+      kIsWeb && defaultTargetPlatform != TargetPlatform.iOS;
+
+  Future<void> _downloadApk() async {
+    final ok = await launchUrl(
+      Uri.parse(AppConstants.apkDownloadUrl),
+      mode: LaunchMode.externalApplication,
+      webOnlyWindowName: '_blank',
+    );
+    if (!ok && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not start the download')),
+      );
+    }
   }
 
   @override
@@ -88,6 +109,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             const SizedBox(height: 20),
+            if (_showApkDownload) ...[
+              _sectionLabel('GET THE APP'),
+              _actionTile(
+                icon: Icons.android_rounded,
+                title: 'Download Android App',
+                subtitle: 'Install the latest APK directly',
+                onTap: _downloadApk,
+              ),
+              const SizedBox(height: 20),
+            ],
             _sectionLabel('ACCOUNT'),
             _navTile(
                 icon: Icons.person_outline,
@@ -158,6 +189,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
         value: value,
         onChanged: onChanged,
+      ),
+    );
+  }
+
+  Widget _actionTile({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: AppColors.bgSurface,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: ListTile(
+        leading: Icon(icon, color: AppColors.accentBlue),
+        title: Text(title,
+            style: const TextStyle(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w600,
+                fontSize: 14.5)),
+        subtitle: Text(subtitle,
+            style:
+                const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+        trailing:
+            const Icon(Icons.download_rounded, color: AppColors.textMuted),
+        onTap: onTap,
       ),
     );
   }

@@ -52,3 +52,9 @@ signaling_server
 start_system.bat
 update_config.py
 Voice samples
+
+# Android release signing (never commit these)
+key.properties
+**/key.properties
+*.jks
+*.keystore
