@@ -56,8 +56,11 @@ jobs:
       # The build number must go up with every build so Android accepts the
       # APK as an update, and so the in-app update check can compare it
       # with the release tag (v<run_number>).
+      # arm64 only: nearly all phones from the last ~8 years. A "fat" APK with
+      # every CPU architecture was ~300 MB because of ffmpeg/WebRTC native libs.
+      # Still produces a single file named app-release.apk.
       - name: Build release APK
-        run: flutter build apk --release --build-number=${{ github.run_number }}
+        run: flutter build apk --release --target-platform android-arm64 --build-number=${{ github.run_number }}
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
