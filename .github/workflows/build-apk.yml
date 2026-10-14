@@ -26,9 +26,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      # Pinned to the same version used locally. Newer Flutter releases need a
+      # newer Gradle/AGP than this project has. Bump this when you upgrade.
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.35.3'
           channel: 'stable'
           cache: true
 
