@@ -52,6 +52,20 @@ android {
         }
     }
 
+    // Belt and braces for the size fix: also drop the 32-bit ARM and x86
+    // native libraries at packaging time. Only active for CI release builds.
+    if (System.getenv("APK_ARM64_ONLY") == "true") {
+        packaging {
+            jniLibs {
+                excludes += setOf(
+                    "lib/armeabi-v7a/**",
+                    "lib/x86/**",
+                    "lib/x86_64/**",
+                )
+            }
+        }
+    }
+
     signingConfigs {
         if (hasReleaseKey) {
             create("release") {
