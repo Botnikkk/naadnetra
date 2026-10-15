@@ -62,7 +62,7 @@ jobs:
       - name: Build release APK
         env:
           APK_ARM64_ONLY: 'true'
-        run: flutter build apk --release --target-platform android-arm64 --build-number=${{ github.run_number }}
+        run: flutter build apk --release --verbose --target-platform android-arm64 --build-number=${{ github.run_number }}
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
