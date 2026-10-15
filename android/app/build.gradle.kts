@@ -40,6 +40,16 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // Release APKs built by CI ship only arm64 native libraries. Plugins
+        // like ffmpeg, onnxruntime and WebRTC bundle every CPU type, which
+        // made the APK ~280 MB. Gated on an env var so local `flutter run`
+        // on emulators / 32-bit devices still works.
+        if (System.getenv("APK_ARM64_ONLY") == "true") {
+            ndk {
+                abiFilters += listOf("arm64-v8a")
+            }
+        }
     }
 
     signingConfigs {
