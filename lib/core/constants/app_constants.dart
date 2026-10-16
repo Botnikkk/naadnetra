@@ -12,10 +12,9 @@ class AppConstants {
   static const double safeThreshold = 0.4;
   static const double cautionThreshold = 0.7;
 
-  // GitHub repo that hosts the APK builds (Releases)
-  static const String githubRepo = 'Botnikkk/naadnetra';
-  static const String apkDownloadUrl =
-      'https://github.com/$githubRepo/releases/latest/download/app-release.apk';
-  static const String latestReleaseApiUrl =
-      'https://api.github.com/repos/$githubRepo/releases/latest';
+  // The APK is published on the GitHub Pages site (not github.com), so the
+  // GitHub Android app can't hijack the download link.
+  static const String siteUrl = 'https://botnikkk.github.io/naadnetra';
+  static const String apkDownloadUrl = '$siteUrl/naadnetra.apk';
+  static const String versionUrl = '$siteUrl/version.json';
 }

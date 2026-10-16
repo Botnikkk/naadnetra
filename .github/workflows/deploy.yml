@@ -1,12 +1,33 @@
 name: Deploy to GitHub Pages
 
+# On every push to main: build the signed APK and the web app, then publish
+# both together on the Pages site:
+#   https://botnikkk.github.io/naadnetra/            (web app)
+#   https://botnikkk.github.io/naadnetra/naadnetra.apk
+#   https://botnikkk.github.io/naadnetra/version.json (used by the in-app update check)
 on:
   push:
     branches:
-      - main 
+      - main
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  build_and_deploy:
+  apk:
+    uses: ./.github/workflows/build-apk.yml
+    secrets: inherit
+
+  web:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,8 +44,44 @@ jobs:
       - name: Build Web App
         run: flutter build web --base-href "/naadnetra/"
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload web build
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          name: web
+          path: build/web
+          retention-days: 1
+
+  deploy:
+    needs: [apk, web]
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download web build
+        uses: actions/download-artifact@v4
+        with:
+          name: web
+          path: site
+
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: apk
+          path: site
+
+      - name: Write version.json
+        run: |
+          mv site/app-release.apk site/naadnetra.apk
+          touch site/.nojekyll
+          echo '{"build": ${{ github.run_number }}}' > site/version.json
+          ls -lh site/naadnetra.apk site/version.json
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

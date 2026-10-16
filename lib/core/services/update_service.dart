@@ -8,11 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/app_constants.dart';
 
-/// Checks the latest GitHub Release and, if it is newer than the installed
-/// build, shows an "Update available" dialog that opens the APK download.
+/// Reads `version.json` from the Pages site and, if its build number is newer
+/// than the installed build, shows an "Update available" dialog that opens the
+/// APK download.
 ///
-/// Release tags look like `v12` (the workflow run number), and the installed
-/// app's build number is set to the same run number by
+/// version.json looks like `{"build": 12}` (the workflow run number), and the
+/// installed app's build number is set to the same run number by
 /// `flutter build apk --build-number=...`, so the check is a plain integer
 /// comparison.
 class UpdateService {
@@ -27,17 +28,14 @@ class UpdateService {
     _checkedThisSession = true;
 
     try {
-      final res = await http
-          .get(
-            Uri.parse(AppConstants.latestReleaseApiUrl),
-            headers: {'Accept': 'application/vnd.github+json'},
-          )
-          .timeout(const Duration(seconds: 8));
+      // Cache-buster so a CDN/browser cache never hides a new build.
+      final url = Uri.parse(
+          '${AppConstants.versionUrl}?t=${DateTime.now().millisecondsSinceEpoch}');
+      final res = await http.get(url).timeout(const Duration(seconds: 8));
       if (res.statusCode != 200) return;
 
       final data = jsonDecode(res.body) as Map<String, dynamic>;
-      final tag = (data['tag_name'] as String?) ?? '';
-      final latest = int.tryParse(tag.replaceFirst('v', '')) ?? 0;
+      final latest = (data['build'] as num?)?.toInt() ?? 0;
 
       final info = await PackageInfo.fromPlatform();
       final current = int.tryParse(info.buildNumber) ?? 0;
